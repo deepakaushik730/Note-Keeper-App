@@ -152,3 +152,126 @@ input {
   0% { opacity: 1; transform: translateY(0) scale(1); }
   100% { opacity: 0; transform: translateY(-10px) scale(0.95); filter: blur(2px); }
 }
+
+.auth-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  background: linear-gradient(135deg, #00bfff, #ff4c68, #ef8172);
+  background-size: 180% 180%;
+  animation: gradient-animation 15s ease infinite;
+}
+
+.auth-box {
+  background: rgba(255, 255, 255, 0.15);
+  border: 1px solid rgba(255, 255, 255, 0.25);
+  backdrop-filter: blur(12px);
+  border-radius: 12px;
+  padding: 2rem 2.5rem;
+  width: 360px;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.25);
+  text-align: center;
+}
+
+.auth-box h2 {
+  color: #fff;
+  margin-bottom: 1.5rem;
+  font-size: 1.8rem;
+  font-weight: 600;
+}
+
+.auth-input {
+  width: 100%;
+  padding: 0.9rem;
+  border: none;
+  border-radius: 6px;
+  margin-bottom: 1rem;
+  outline: none;
+  background: rgba(255, 255, 255, 0.9);
+  font-size: 1rem;
+  color: #333;
+  transition: all 0.2s ease;
+}
+
+.auth-input:focus {
+  box-shadow: 0 0 0 3px rgba(0, 191, 255, 0.4);
+}
+
+.auth-button {
+  width: 100%;
+  padding: 0.9rem;
+  background: #007bff;
+  color: white;
+  border: none;
+  border-radius: 6px;
+  font-size: 1rem;
+  cursor: pointer;
+  transition: background 0.25s ease, transform 0.2s ease;
+}
+
+.auth-button:hover {
+  background: #0056b3;
+  transform: scale(1.03);
+}
+
+.auth-toggle {
+  color: #fff;
+  margin-top: 1rem;
+  font-size: 0.95rem;
+}
+
+.auth-toggle span {
+  color: #ffd700;
+  cursor: pointer;
+  font-weight: 600;
+  transition: color 0.25s ease;
+}
+
+.auth-toggle span:hover {
+  color: #fff;
+}
+
+.error-message {
+  color: #ff4c68;
+  background: rgba(255, 255, 255, 0.1);
+  padding: 0.5rem;
+  border-radius: 5px;
+  margin-bottom: 1rem;
+  font-size: 0.9rem;
+}
+
+.topbar {
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  gap:12px;
+  padding:12px 0;
+}
+
+.topbar-right {
+  display:flex;
+  align-items:center;
+  gap:10px;
+}
+
+.user-pill {
+  background: rgba(255,255,255,0.15);
+  color: #fff;
+  padding: 6px 10px;
+  border-radius: 999px;
+  font-size: 0.9rem;
+  max-width: 220px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.logout-btn {
+  padding: 6px 10px;
+  border-radius: 8px;
+  border: none;
+  cursor: pointer;
+  background: transparent;
+  color: #fff;
+}

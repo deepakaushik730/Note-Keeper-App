@@ -13,12 +13,14 @@
 require("dotenv").config();
 
 // --- Imports ---
+const auth = require('./middleware/auth') 
 
 const express = require("express"); // The core framework for building the API
 
 const cors = require("cors"); // Middleware to enable Cross-Origin Resource Sharing
 
 const tasks = require("./routes/tasks"); // Imports the router for all task-related endpoints
+const authRoutes = require('./routes/auth')
 
 // --- App Initialization ---
 
@@ -57,7 +59,8 @@ app.use((req, res, next) => {
 });
 
 // --- API Routes ---
-
+app.use('/api/auth', authRoutes)
+app.use('/api/tasks', auth, tasks)
 // Mount the task routes. All requests that start with '/tasks' will be
 
 // forwarded to the router defined in './routes/tasks.js'.
