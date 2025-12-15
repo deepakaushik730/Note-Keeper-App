@@ -1,107 +1,100 @@
-import axios from "axios";
+import axios from "axios"
 
-const API_URL = "http://localhost:4000";
+// single axios instance for both local and production
+const api = axios.create({
+  baseURL: import.meta.env.VITE_API_URL
+})
 
-// create axios instance (no static Authorization header)
-const axiosAuth = axios.create({
-  baseURL: API_URL,
-});
-
-// request interceptor: read token each time (keeps it fresh after login)
-axiosAuth.interceptors.request.use(
+// attach token on every request
+api.interceptors.request.use(
   (config) => {
-    const token = localStorage.getItem("token");
-    if (token) config.headers.Authorization = `Bearer ${token}`;
-    return config;
+    const token = localStorage.getItem("token")
+    if (token) config.headers.Authorization = `Bearer ${token}`
+    return config
   },
   (error) => Promise.reject(error)
-);
+)
 
-// --- auth ---
+// ---------- auth ----------
+
 export const signup = async (email, password) => {
   try {
-    const res = await axios.post(`${API_URL}/api/auth/signup`, {
-      email,
-      password,
-    });
-    localStorage.setItem("token", res.data.token);
-    return { ok: true };
+    const res = await api.post("/api/auth/signup", { email, password })
+    localStorage.setItem("token", res.data.token)
+    return { ok: true }
   } catch (err) {
     return {
       ok: false,
-      error: err.response?.data?.error || "User already exists",
-    };
+      error: err.response?.data?.error || "signup failed"
+    }
   }
-};
+}
 
 export const signin = async (email, password) => {
   try {
-    const res = await axios.post(`${API_URL}/api/auth/login`, {
-      email,
-      password,
-    });
-    localStorage.setItem("token", res.data.token);
-    return { ok: true };
+    const res = await api.post("/api/auth/login", { email, password })
+    localStorage.setItem("token", res.data.token)
+    return { ok: true }
   } catch (err) {
     return {
       ok: false,
-      error: err.response?.data?.error || "Invalid credentials",
-    };
+      error: err.response?.data?.error || "invalid credentials"
+    }
   }
-};
+}
 
 export const signout = () => {
-  localStorage.removeItem("token");
-};
+  localStorage.removeItem("token")
+}
 
-// --- tasks ---
+// ---------- tasks ----------
+
 export const fetch_tasks = async () => {
   try {
-    const res = await axiosAuth.get("/tasks");
-    return res.data;
+    const res = await api.get("/api/tasks")
+    return res.data
   } catch (err) {
-    console.error("Error fetching tasks:", err.response?.data || err.message);
-    if (err.response?.status === 401) signout();
-    return [];
+    if (err.response?.status === 401) signout()
+    return []
   }
-};
+}
 
 export const create_task = async (title) => {
   try {
-    const res = await axiosAuth.post("/tasks", { title });
-    return res.data;
+    const res = await api.post("/api/tasks", { title })
+    return res.data
   } catch (err) {
-    console.error("Error adding task:", err.response?.data || err.message);
-    if (err.response?.status === 401) signout();
+    if (err.response?.status === 401) signout()
   }
-};
+}
 
 export const reorder_tasks = async (payload) => {
   try {
-    const res = await axiosAuth.post("/tasks/reorder", { columns: payload });
-    return res.data;
+    const res = await api.post("/api/tasks/reorder", {
+      columns: payload
+    })
+    return res.data
   } catch (err) {
-    console.error("Error reordering tasks:", err.response?.data || err.message);
-    if (err.response?.status === 401) signout();
+    if (err.response?.status === 401) signout()
   }
-};
+}
 
 export const updateTask = async (id, updatedData) => {
   try {
-    const res = await axiosAuth.put(`/tasks/${id}`, updatedData);
-    return res.data;
+    const res = await api.put(`/api/tasks/${id}`, updatedData)
+    return res.data
   } catch (err) {
-    console.error("Error updating task:", err.response?.data || err.message);
-    if (err.response?.status === 401) signout();
+    if (err.response?.status === 401) signout()
   }
-};
+}
 
 export const deleteTask = async (id) => {
   try {
-    const res = await axiosAuth.delete(`/tasks/${id}`);
-    return res.data;
+    const res = await api.delete(`/api/tasks/${id}`)
+    return res.data
   } catch (err) {
-    console.error("Error deleting task:", err.response?.data || err.message);
-    if (err.response?.status === 401) signout();
+    if (err.response?.status === 401) signout()
   }
-};
+}
+
+export default api
