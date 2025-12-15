@@ -1,14 +1,17 @@
+/* body font and spacing */
 body {
   font-family: system-ui, Arial;
   margin: 20px;
 }
 
+/* page title */
 h1 {
   color: #fff;
   text-align: center;
   margin-bottom: 1rem;
 }
 
+/* default input styling */
 input {
   width: 100%;
   background: rgba(255, 255, 255, 0.9);
@@ -20,44 +23,54 @@ input {
   margin-bottom: 1rem;
 }
 
+/* main app container width */
 .app {
   max-width: 1000px;
   margin: 0 auto;
 }
 
+/* form for adding tasks */
 .addform {
   margin-bottom: 16px;
   display: flex;
   gap: 8px;
 }
 
+/* input inside add form */
 .addform input {
   flex: 1;
   padding: 8px;
   font-size: 16px;
 }
 
+/* board layout (columns side by side) */
 .board {
   display: flex;
   gap: 16px;
 }
 
+/* column card styling */
+/* fixed column height + internal scroll added below */
 .column {
   background: rgba(255, 255, 255, 0.85);
   border-radius: 10px;
   padding: 1rem;
   flex: 1;
   min-height: 60vh;
+  max-height: 65vh; /* fix column max height */
+  overflow-y: auto; /* enable scrolling inside column when many tasks */
   box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
   border: 1px solid rgba(255, 255, 255, 0.3);
 }
 
+/* column headings */
 .column h2, .column h3 {
   color: #222;
   text-transform: capitalize;
   margin-bottom: 0.8rem;
 }
 
+/* task list area inside column */
 .tasklist {
   min-height: 80px;
   flex: 1;
@@ -67,10 +80,12 @@ input {
   transition: background 0.15s;
 }
 
+/* drop-over state */
 .tasklist.over {
   background: rgba(0, 0, 0, 0.03);
 }
 
+/* single task appearance */
 .task {
   display: flex;
   justify-content: space-between;
@@ -85,22 +100,26 @@ input {
   transition: transform 0.25s ease, box-shadow 0.25s ease, background 0.25s ease;
 }
 
+/* task text wrapping */
 .task span {
   flex: 1;
   word-break: break-word;
 }
 
+/* hover effect for task */
 .task:hover {
   transform: translateY(-2px) scale(1.02);
   box-shadow: 0 4px 10px rgba(0, 0, 0, 0.25);
   background: rgba(255, 255, 255, 0.97);
 }
 
+/* dragging visual */
 .task.dragging {
   box-shadow: 0 6px 14px rgba(0, 0, 0, 0.2);
   transform: rotate(1deg);
 }
 
+/* icon container */
 .icons {
   display: flex;
   align-items: center;
@@ -108,6 +127,7 @@ input {
   justify-content: flex-end;
 }
 
+/* icon styling */
 .edit-icon,
 .delete-icon {
   font-size: 1.1rem;
@@ -116,43 +136,51 @@ input {
   transition: color 0.2s ease, transform 0.2s ease;
 }
 
+/* edit icon hover */
 .edit-icon:hover {
   color: #0d6efd;
   transform: scale(1.15);
 }
 
+/* delete icon hover */
 .delete-icon:hover {
   color: #dc3545;
   transform: scale(1.15);
 }
 
+/* animated gradient background class */
 .gradient-background {
   background: linear-gradient(300deg, #00bfff, #ff4c68, #ef8172);
   background-size: 180% 180%;
   animation: gradient-animation 18s ease infinite;
 }
 
+/* keyframes for gradient */
 @keyframes gradient-animation {
   0% { background-position: 0% 50%; }
   50% { background-position: 100% 50%; }
   100% { background-position: 0% 50%; }
 }
 
+/* generic container */
 .container {
   display: flex;
   justify-content: space-around;
   gap: 1rem;
 }
 
+/* fade-out animation */
 .fade-out {
   animation: vanish 0.4s ease-out forwards;
 }
 
+/* keyframes for vanish */
 @keyframes vanish {
   0% { opacity: 1; transform: translateY(0) scale(1); }
   100% { opacity: 0; transform: translateY(-10px) scale(0.95); filter: blur(2px); }
 }
 
+/* auth page layout */
 .auth-container {
   display: flex;
   justify-content: center;
@@ -163,6 +191,7 @@ input {
   animation: gradient-animation 15s ease infinite;
 }
 
+/* auth box styling */
 .auth-box {
   background: rgba(255, 255, 255, 0.15);
   border: 1px solid rgba(255, 255, 255, 0.25);
@@ -174,6 +203,7 @@ input {
   text-align: center;
 }
 
+/* auth heading */
 .auth-box h2 {
   color: #fff;
   margin-bottom: 1.5rem;
@@ -181,6 +211,7 @@ input {
   font-weight: 600;
 }
 
+/* auth inputs */
 .auth-input {
   width: 100%;
   padding: 0.9rem;
@@ -194,10 +225,12 @@ input {
   transition: all 0.2s ease;
 }
 
+/* focus for auth inputs */
 .auth-input:focus {
   box-shadow: 0 0 0 3px rgba(0, 191, 255, 0.4);
 }
 
+/* auth submit button */
 .auth-button {
   width: 100%;
   padding: 0.9rem;
@@ -210,17 +243,20 @@ input {
   transition: background 0.25s ease, transform 0.2s ease;
 }
 
+/* auth button hover */
 .auth-button:hover {
   background: #0056b3;
   transform: scale(1.03);
 }
 
+/* auth toggle text */
 .auth-toggle {
   color: #fff;
   margin-top: 1rem;
   font-size: 0.95rem;
 }
 
+/* toggle link style */
 .auth-toggle span {
   color: #ffd700;
   cursor: pointer;
@@ -228,10 +264,12 @@ input {
   transition: color 0.25s ease;
 }
 
+/* toggle hover */
 .auth-toggle span:hover {
   color: #fff;
 }
 
+/* error message style */
 .error-message {
   color: #ff4c68;
   background: rgba(255, 255, 255, 0.1);
@@ -241,6 +279,7 @@ input {
   font-size: 0.9rem;
 }
 
+/* top bar layout */
 .topbar {
   display:flex;
   justify-content:space-between;
@@ -249,12 +288,14 @@ input {
   padding:12px 0;
 }
 
+/* right side topbar */
 .topbar-right {
   display:flex;
   align-items:center;
   gap:10px;
 }
 
+/* small badge showing user email */
 .user-pill {
   background: rgba(255,255,255,0.15);
   color: #fff;
@@ -267,6 +308,7 @@ input {
   white-space: nowrap;
 }
 
+/* logout button style */
 .logout-btn {
   padding: 6px 10px;
   border-radius: 8px;
@@ -274,4 +316,15 @@ input {
   cursor: pointer;
   background: transparent;
   color: #fff;
+}
+
+/* scrollbar styling for webkit browsers */
+.column::-webkit-scrollbar {
+  width: 8px;
+}
+
+/* scrollbar thumb */
+.column::-webkit-scrollbar-thumb {
+  background: rgba(0,0,0,0.15);
+  border-radius: 8px;
 }

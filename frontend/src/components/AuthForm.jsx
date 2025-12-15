@@ -7,33 +7,26 @@ export default function AuthForm({ onAuthSuccess }) {
   const [error, setError] = useState("");
 
   const handleSubmit = async (e) => {
-    e.preventDefault();
-    try {
-      if (isLogin) {
-        await signin(form.email, form.password);
-      } else {
-        // 🔹 don't send name (your DB has no name column)
-        await signup(form.email, form.password);
-      }
-      onAuthSuccess();
-    } catch {
-      setError("Invalid credentials or user already exists");
-    }
-  };
+  e.preventDefault();
+  setError("");
+
+  const res = isLogin
+    ? await signin(form.email, form.password)
+    : await signup(form.email, form.password);
+
+  if (!res.ok) {
+    setError(res.error);
+    return;
+  }
+
+  onAuthSuccess();
+};
 
   return (
     <div className="auth-container gradient-background">
       <form className="auth-form" onSubmit={handleSubmit}>
         <h2>{isLogin ? "Sign In" : "Sign Up"}</h2>
 
-        {/* {!isLogin && (
-          <input
-            type="text"
-            placeholder="Full Name (optional)"
-            value={form.name}
-            onChange={(e) => setForm({ ...form, name: e.target.value })}
-          />
-        )} */}
 
         <input
           type="email"

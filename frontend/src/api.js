@@ -20,23 +20,33 @@ axiosAuth.interceptors.request.use(
 // --- auth ---
 export const signup = async (email, password) => {
   try {
-    const res = await axios.post(`${API_URL}/api/auth/signup`, { email, password });
-    if (res.data.token) localStorage.setItem("token", res.data.token);
+    const res = await axios.post(`${API_URL}/api/auth/signup`, {
+      email,
+      password,
+    });
+    localStorage.setItem("token", res.data.token);
     return { ok: true };
   } catch (err) {
-    console.error("Signup error:", err.response?.data || err.message);
-    return { ok: false, error: err.response?.data?.error || "Signup failed" };
+    return {
+      ok: false,
+      error: err.response?.data?.error || "User already exists",
+    };
   }
 };
 
 export const signin = async (email, password) => {
   try {
-    const res = await axios.post(`${API_URL}/api/auth/login`, { email, password });
-    if (res.data.token) localStorage.setItem("token", res.data.token);
+    const res = await axios.post(`${API_URL}/api/auth/login`, {
+      email,
+      password,
+    });
+    localStorage.setItem("token", res.data.token);
     return { ok: true };
   } catch (err) {
-    console.error("Signin error:", err.response?.data || err.message);
-    return { ok: false, error: err.response?.data?.error || "Signin failed" };
+    return {
+      ok: false,
+      error: err.response?.data?.error || "Invalid credentials",
+    };
   }
 };
 
