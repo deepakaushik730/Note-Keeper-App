@@ -51,17 +51,31 @@ export default function App() {
   }
 
   async function handleAdd(e) {
-    e.preventDefault();
-    const trimmedText = text.trim();
-    if (!trimmedText) return;
-    try {
-      await create_task(trimmedText);
-      setText("");
+  e.preventDefault();
+
+  const trimmedText = text.trim();
+  if (!trimmedText) return;
+
+  try {
+    const newTask = await create_task(trimmedText);
+    // safety check
+    if (!newTask || !newTask.status) {
       await load();
-    } catch (err) {
-      console.error("Failed to add task:", err);
+      return;
     }
+
+    setColumns((prev) => ({
+      ...prev,
+      [newTask.status]: [...prev[newTask.status], newTask],
+    }));
+
+    setText("");
+  } catch (err) {
+    console.error("Failed to add task:", err);
+    await load(); // fallback safety
   }
+}
+
 
   async function handleDelete(taskId) {
     try {
@@ -117,7 +131,6 @@ export default function App() {
 
     try {
       await reorder_tasks(payload);
-      await load();
     } catch (err) {
       console.error("Failed to reorder tasks:", err);
       alert("Failed to save new order. Reverting.");
@@ -133,18 +146,7 @@ export default function App() {
   return (
     <ProtectedRoute>
       <div className="app">
-        {/* <div className="topbar">
-          <h1>Note Keeper App (Drag & Drop)</h1>
-          <button
-            onClick={() => {
-              signout();
-              setIsAuthenticated(false);
-            }}
-            className="logout-btn"
-          >
-            Logout
-          </button>
-        </div> */}
+       
         <Header onLogout={() => setIsAuthenticated(false)} />
           
         <form onSubmit={handleAdd} className="addform">
