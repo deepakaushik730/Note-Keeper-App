@@ -18,14 +18,13 @@ export default function Task({ task, index, onDelete }) {
   };
 
   const handleEditSave = async () => {
-  setEditing(false);
-  if (title.trim() && title !== task.title) {
-    await updateTask(task.id, { title });
-  } else {
-    setTitle(task.title);
-  }
-};
-
+    setEditing(false);
+    if (title.trim() && title !== task.title) {
+      await updateTask(task.id, { title });
+    } else {
+      setTitle(task.title);
+    }
+  };
 
   return (
     <Draggable draggableId={String(task.id)} index={index}>
@@ -35,7 +34,7 @@ export default function Task({ task, index, onDelete }) {
           {...provided.draggableProps}
           {...provided.dragHandleProps}
           className={
-            "task d-flex justify-content-between align-items-center p-2 rounded shadow-sm " +
+            "task p-2 rounded shadow-sm " +
             (snapshot.isDragging ? "dragging " : "") +
             (removing ? "fade-out " : "")
           }
@@ -49,19 +48,35 @@ export default function Task({ task, index, onDelete }) {
               onKeyDown={(e) => e.key === "Enter" && handleEditSave()}
               autoFocus
               className="form-control form-control-sm"
-              style={{ flex: 1, marginRight: "0.5rem" }}
             />
           ) : (
-            <span style={{ flex: 1 }}>{title}</span>
+            <span className="task-text">{title}</span>
           )}
 
-          <div className="icons">
-            <i
-              className="bi bi-pencil edit-icon"
-              onClick={() => setEditing(true)}
-            ></i>
+          <div className="task-footer">
+            <small className="note-time">
+             {new Date(task.created_at).toLocaleDateString(undefined, {
+  year: "numeric",
+  month: "short",
+  day: "numeric",
+})},{" "}
+{new Date(task.created_at).toLocaleTimeString(undefined, {
+  hour: "2-digit",
+  minute: "2-digit",
+  hour12: false,
+})}
+            </small>
 
-            <i className="bi bi-trash delete-icon" onClick={handleDelete}></i>
+            <div className="icons">
+              <i
+                className="bi bi-pencil edit-icon"
+                onClick={() => setEditing(true)}
+              ></i>
+              <i
+                className="bi bi-trash delete-icon"
+                onClick={handleDelete}
+              ></i>
+            </div>
           </div>
         </div>
       )}

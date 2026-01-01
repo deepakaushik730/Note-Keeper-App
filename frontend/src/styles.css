@@ -88,18 +88,19 @@ input {
 /* single task appearance */
 .task {
   display: flex;
+  flex-direction: column;
+  gap: 6px;
   justify-content: space-between;
-  align-items: center;
-  background: #ffffff;
+  align-items: stretch; 
+  background: #fffef8;
+  border-left: 4px solid #ffcc00;
   border-radius: 6px;
   padding: 0.6rem 1rem;
   margin-bottom: 0.6rem;
-  color: #333;
   font-weight: 500;
   box-shadow: 0 2px 6px rgba(0, 0, 0, 0.15);
-  transition: transform 0.25s ease, box-shadow 0.25s ease, background 0.25s ease;
+   color: #333;
 }
-
 /* task text wrapping */
 .task span {
   flex: 1;
@@ -327,4 +328,25 @@ input {
 .column::-webkit-scrollbar-thumb {
   background: rgba(0,0,0,0.15);
   border-radius: 8px;
+}
+.empty-text {
+  font-size: 0.85rem;
+  color: #777;
+  text-align: center;
+  margin-top: 1rem;
+}
+
+.task-text {
+  word-break: break-word;
+}
+
+.task-footer {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.note-time {
+  font-size: 0.7rem;
+  color: #888;
 }

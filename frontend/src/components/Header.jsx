@@ -20,7 +20,7 @@ export default function Header({ onLogout }) {
 
   return (
     <div className="topbar">
-      <h1 className="app-title">ToDo App (Drag & Drop)</h1>
+      <h1 className="app-title">NoteKeeper App (Drag & Drop)</h1>
       <div className="topbar-right">
         {email && <div className="user-pill" title={email}>{email}</div>}
         <button

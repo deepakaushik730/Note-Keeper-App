@@ -24,6 +24,9 @@ export default function Column({ status, title, tasks: initialTasks }) {
             {...provided.droppableProps}
             className={'tasklist' + (snapshot.isDraggingOver ? ' over' : '')}
           >
+            {tasks.length === 0 && (
+              <p className="empty-text">No notes here yet</p>
+            )}
             {tasks.map((t, i) => (
               <Task key={t.id} task={t} index={i} onDelete={handleDelete} />
             ))}

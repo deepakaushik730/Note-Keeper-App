@@ -153,7 +153,7 @@ export default function App() {
           <input
             value={text}
             onChange={(e) => setText(e.target.value)}
-            placeholder="Add task and press Enter"
+            placeholder="Write a note and press Enter"
           />
         </form>
 
@@ -164,19 +164,19 @@ export default function App() {
             <div className="board">
               <Column
                 status="todo"
-                title="To Do"
+                title="My Notes"
                 tasks={columns.todo}
                 onDelete={handleDelete}
               />
               <Column
                 status="inprogress"
-                title="In Progress"
+                title="Pinned Notes"
                 tasks={columns.inprogress}
                 onDelete={handleDelete}
               />
               <Column
                 status="completed"
-                title="Completed"
+                title="Archived Notes"
                 tasks={columns.completed}
                 onDelete={handleDelete}
               />
